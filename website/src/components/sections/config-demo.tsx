@@ -2,40 +2,51 @@
 
 import { motion } from "framer-motion";
 
-const yamlCode = `robot:
-  name: unitree_g1
-  type: humanoid
-  dof: 23
+// Helper for syntax highlighting
+const Key = ({ children }: { children: React.ReactNode }) => <span className="text-primary">{children}</span>;
+const ValStr = ({ children }: { children: React.ReactNode }) => <span className="text-accent">{children}</span>;
+const ValNum = ({ children }: { children: React.ReactNode }) => <span className="text-chart-4">{children}</span>;
+const ValBool = ({ children }: { children: React.ReactNode }) => <span className="text-chart-2">{children}</span>;
+const Comment = ({ children }: { children: React.ReactNode }) => <span className="text-muted-foreground/60">{children}</span>;
 
-joints:
-  left_arm:
-    - name: left_shoulder_pitch
-      index: 0
-      range: [-3.14, 3.14]
-      max_velocity: 2.0
-    - name: left_shoulder_roll
-      index: 1
-      range: [-1.57, 1.57]
-      max_velocity: 2.0
-    - name: left_elbow
-      index: 2
-      range: [-2.61, 2.61]
-      max_velocity: 2.0
-
-action_space:
-  type: joint_position
-  frequency: 10        # Hz
-  chunk_size: 50       # predict 50 steps
-
-model:
-  base: pi05
-  lora_id: my_g1_lora_v2
-
-safety:
-  joint_limits: true
-  force_limit: 50      # N
-  collision_detection: true
-  emergency_stop_latency: 50  # ms`;
+const HighlightedYaml = () => (
+  <code>
+    <Key>robot:</Key>{"\n"}
+    {"  "}<Key>name:</Key> <ValStr>unitree_g1</ValStr>{"\n"}
+    {"  "}<Key>type:</Key> <ValStr>humanoid</ValStr>{"\n"}
+    {"  "}<Key>dof:</Key> <ValNum>23</ValNum>{"\n"}
+    {"\n"}
+    <Key>joints:</Key>{"\n"}
+    {"  "}<Key>left_arm:</Key>{"\n"}
+    {"    - "}<Key>name:</Key> <ValStr>left_shoulder_pitch</ValStr>{"\n"}
+    {"      "}<Key>index:</Key> <ValNum>0</ValNum>{"\n"}
+    {"      "}<Key>range:</Key> [<ValNum>-3.14</ValNum>, <ValNum>3.14</ValNum>]{"\n"}
+    {"      "}<Key>max_velocity:</Key> <ValNum>2.0</ValNum>{"\n"}
+    {"    - "}<Key>name:</Key> <ValStr>left_shoulder_roll</ValStr>{"\n"}
+    {"      "}<Key>index:</Key> <ValNum>1</ValNum>{"\n"}
+    {"      "}<Key>range:</Key> [<ValNum>-1.57</ValNum>, <ValNum>1.57</ValNum>]{"\n"}
+    {"      "}<Key>max_velocity:</Key> <ValNum>2.0</ValNum>{"\n"}
+    {"    - "}<Key>name:</Key> <ValStr>left_elbow</ValStr>{"\n"}
+    {"      "}<Key>index:</Key> <ValNum>2</ValNum>{"\n"}
+    {"      "}<Key>range:</Key> [<ValNum>-2.61</ValNum>, <ValNum>2.61</ValNum>]{"\n"}
+    {"      "}<Key>max_velocity:</Key> <ValNum>2.0</ValNum>{"\n"}
+    {"\n"}
+    <Key>action_space:</Key>{"\n"}
+    {"  "}<Key>type:</Key> <ValStr>joint_position</ValStr>{"\n"}
+    {"  "}<Key>frequency:</Key> <ValNum>10</ValNum>        <Comment># Hz</Comment>{"\n"}
+    {"  "}<Key>chunk_size:</Key> <ValNum>50</ValNum>       <Comment># predict 50 steps</Comment>{"\n"}
+    {"\n"}
+    <Key>model:</Key>{"\n"}
+    {"  "}<Key>base:</Key> <ValStr>pi05</ValStr>{"\n"}
+    {"  "}<Key>lora_id:</Key> <ValStr>my_g1_lora_v2</ValStr>{"\n"}
+    {"\n"}
+    <Key>safety:</Key>{"\n"}
+    {"  "}<Key>joint_limits:</Key> <ValBool>true</ValBool>{"\n"}
+    {"  "}<Key>force_limit:</Key> <ValNum>50</ValNum>      <Comment># N</Comment>{"\n"}
+    {"  "}<Key>collision_detection:</Key> <ValBool>true</ValBool>{"\n"}
+    {"  "}<Key>emergency_stop_latency:</Key> <ValNum>50</ValNum>  <Comment># ms</Comment>
+  </code>
+);
 
 export function ConfigDemo() {
   return (
@@ -82,7 +93,7 @@ export function ConfigDemo() {
               </span>
             </div>
             <pre className="p-5 text-xs font-mono leading-relaxed text-muted-foreground overflow-x-auto">
-              <code>{yamlCode}</code>
+              <HighlightedYaml />
             </pre>
           </motion.div>
         </div>

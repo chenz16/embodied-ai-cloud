@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Cloud,
@@ -49,6 +50,49 @@ const features = [
   },
 ];
 
+function FeatureCard({ f, i }: { f: typeof features[0], i: number }) {
+  const divRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!divRef.current) return;
+    const rect = divRef.current.getBoundingClientRect();
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  return (
+    <motion.div
+      ref={divRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setOpacity(1)}
+      onMouseLeave={() => setOpacity(0)}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4, delay: i * 0.08 }}
+      className="relative group rounded-2xl border border-border/50 bg-card/40 p-6 overflow-hidden transition-colors hover:border-border/80"
+    >
+      <div
+        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 group-hover:opacity-100 z-0"
+        style={{
+          opacity,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255,255,255,0.06), transparent 40%)`,
+        }}
+      />
+      <div className="relative z-10">
+        <div className="mb-4 inline-flex items-center justify-center rounded-lg bg-primary/10 p-2.5 transition-colors group-hover:bg-primary/20">
+          <f.icon size={22} className="text-primary" />
+        </div>
+        <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {f.description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
 export function Features() {
   return (
     <section id="features" className="relative py-32">
@@ -66,22 +110,7 @@ export function Features() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group rounded-2xl border border-border/50 bg-card/40 p-6 hover:border-primary/30 hover:bg-card/70 transition-all duration-300"
-            >
-              <div className="mb-4 inline-flex items-center justify-center rounded-lg bg-primary/10 p-2.5">
-                <f.icon size={22} className="text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {f.description}
-              </p>
-            </motion.div>
+            <FeatureCard key={f.title} f={f} i={i} />
           ))}
         </div>
       </div>

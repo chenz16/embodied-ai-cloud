@@ -2,7 +2,7 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Cpu, Wifi, Zap } from "lucide-react";
+import { ArrowRight, ArrowLeft, Cpu, Wifi, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 export function Hero() {
@@ -65,11 +65,34 @@ export function Hero() {
               <span className="text-xs text-accent">~$15 hardware</span>
             </div>
 
-            <div className="flex flex-col items-center gap-1">
-              <Wifi size={20} className="text-primary animate-pulse" />
-              <span className="text-xs">H.264 Stream</span>
-              <div className="w-24 h-px bg-gradient-to-r from-primary to-accent" />
-              <span className="text-xs">Action Chunks</span>
+            <div className="flex flex-col items-center justify-center gap-2 relative w-32 md:w-40">
+              <Wifi size={20} className="text-primary animate-pulse absolute -top-10" />
+              
+              <div className="flex flex-col w-full gap-3 relative mt-2">
+                <div className="relative w-full flex items-center">
+                  <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] text-muted-foreground whitespace-nowrap">H.264 Stream</span>
+                  <div className="w-full h-[2px] bg-border/40 overflow-hidden rounded-full">
+                    <motion.div
+                      className="h-full w-1/2 bg-gradient-to-r from-transparent via-primary to-transparent"
+                      animate={{ x: ["-100%", "200%"] }}
+                      transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                    />
+                  </div>
+                  <ArrowRight size={12} className="text-primary/70 absolute -right-1" />
+                </div>
+                
+                <div className="relative w-full flex items-center">
+                  <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-accent/80 whitespace-nowrap">Action Chunks</span>
+                  <div className="w-full h-[2px] bg-border/40 overflow-hidden rounded-full">
+                    <motion.div
+                      className="h-full w-1/2 bg-gradient-to-l from-transparent via-accent to-transparent"
+                      animate={{ x: ["200%", "-100%"] }}
+                      transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                    />
+                  </div>
+                  <ArrowLeft size={12} className="text-accent/70 absolute -left-1" />
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-col items-center gap-2 p-4 rounded-xl border border-primary/30 bg-primary/5 min-w-[240px]">
