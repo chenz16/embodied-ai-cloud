@@ -61,7 +61,7 @@ function RobotCategory({ title, badge, robots }: { title: string; badge: string;
 
 export function Robots() {
   return (
-    <section id="robots" className="py-32 relative">
+    <section id="robots" className="py-32 relative section-alt">
       <div className="mx-auto max-w-7xl px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">

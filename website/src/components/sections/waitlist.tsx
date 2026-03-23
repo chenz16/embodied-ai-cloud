@@ -18,7 +18,7 @@ export function Waitlist() {
   }
 
   return (
-    <section id="waitlist" className="py-32 relative">
+    <section id="waitlist" className="py-32 relative section-alt">
       <div className="absolute inset-0 radial-fade" />
 
       <div className="relative z-10 mx-auto max-w-2xl px-6">

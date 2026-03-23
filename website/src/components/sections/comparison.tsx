@@ -50,7 +50,7 @@ const rows = [
 
 export function Comparison() {
   return (
-    <section className="py-32 relative">
+    <section className="py-32 relative section-alt">
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">

@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/sections/navbar";
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
+import { LoRA } from "@/components/sections/lora";
 import { Comparison } from "@/components/sections/comparison";
 import { Models } from "@/components/sections/models";
 import { Robots } from "@/components/sections/robots";
@@ -17,6 +18,7 @@ export default function Home() {
       <main>
         <Hero />
         <Features />
+        <LoRA />
         <Comparison />
         <Models />
         <Robots />
